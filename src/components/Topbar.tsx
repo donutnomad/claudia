@@ -6,6 +6,7 @@ import { Popover } from "@/components/ui/popover";
 import { api, type ClaudeVersionStatus } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import ThemeToggle from "./ThemeToggle";
 import { useTranslation } from "react-i18next";
 
 interface TopbarProps {
@@ -225,6 +226,8 @@ export const Topbar: React.FC<TopbarProps> = ({
         >
           <Info className="h-4 w-4" />
         </Button>
+        
+        <ThemeToggle />
         
         <LanguageSwitcher />
       </div>

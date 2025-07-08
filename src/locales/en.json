@@ -112,6 +112,10 @@
     "mcp": "MCP",
     "about": "About"
   },
+  "theme": {
+    "switchToLight": "Switch to light mode",
+    "switchToDark": "Switch to dark mode"
+  },
   "placeholders": {
     "selectTable": "Select a table",
     "searchInTable": "Search in table...",

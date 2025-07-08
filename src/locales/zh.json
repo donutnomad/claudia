@@ -112,6 +112,10 @@
     "mcp": "MCP",
     "about": "关于"
   },
+  "theme": {
+    "switchToLight": "切换到明亮模式",
+    "switchToDark": "切换到夜间模式"
+  },
   "placeholders": {
     "selectTable": "选择表格",
     "searchInTable": "在表格中搜索...",
