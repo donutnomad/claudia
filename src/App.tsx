@@ -20,6 +20,7 @@ import { NFOCredits } from "@/components/NFOCredits";
 import { ClaudeBinaryDialog } from "@/components/ClaudeBinaryDialog";
 import { Toast, ToastContainer } from "@/components/ui/toast";
 import { ProjectSettings } from '@/components/ProjectSettings';
+import { useTranslation } from "react-i18next";
 
 type View = 
   | "welcome" 
@@ -56,6 +57,7 @@ function App() {
   const [isClaudeStreaming, setIsClaudeStreaming] = useState(false);
   const [projectForSettings, setProjectForSettings] = useState<Project | null>(null);
   const [previousView, setPreviousView] = useState<View>("welcome");
+  const { t } = useTranslation();
 
   // Load projects on mount when in projects view
   useEffect(() => {
@@ -98,7 +100,7 @@ function App() {
       setProjects(projectList);
     } catch (err) {
       console.error("Failed to load projects:", err);
-      setError("Failed to load projects. Please ensure ~/.claude directory exists.");
+      setError(t("projects.failedToLoad"));
     } finally {
       setLoading(false);
     }
@@ -116,7 +118,7 @@ function App() {
       setSelectedProject(project);
     } catch (err) {
       console.error("Failed to load sessions:", err);
-      setError("Failed to load sessions for this project.");
+      setError(t("projects.failedToLoadSessions"));
     } finally {
       setLoading(false);
     }
@@ -160,11 +162,7 @@ function App() {
   const handleViewChange = (newView: View) => {
     // Check if we're navigating away from an active Claude session
     if (view === "claude-code-session" && isClaudeStreaming && activeClaudeSessionId) {
-      const shouldLeave = window.confirm(
-        "Claude is still responding. If you navigate away, Claude will continue running in the background.\n\n" +
-        "You can return to this session from the Projects view.\n\n" +
-        "Do you want to continue?"
-      );
+      const shouldLeave = window.confirm(t("session.claudeResponding"));
       
       if (!shouldLeave) {
         return;
@@ -214,7 +212,7 @@ function App() {
               >
                 <h1 className="text-4xl font-bold tracking-tight">
                   <span className="rotating-symbol"></span>
-                  Welcome to Claudia
+                  {t("navigation.welcome")}
                 </h1>
               </motion.div>
 
@@ -249,7 +247,7 @@ function App() {
                   >
                     <div className="h-full flex flex-col items-center justify-center p-8">
                       <FolderCode className="h-16 w-16 mb-4 text-primary" />
-                      <h2 className="text-xl font-semibold">CC Projects</h2>
+                      <h2 className="text-xl font-semibold">{t("navigation.ccProjects")}</h2>
                     </div>
                   </Card>
                 </motion.div>
@@ -297,12 +295,12 @@ function App() {
                   onClick={() => handleViewChange("welcome")}
                   className="mb-4"
                 >
-                  ← Back to Home
+                  {t("navigation.backToHome")}
                 </Button>
                 <div className="mb-4">
-                  <h1 className="text-3xl font-bold tracking-tight">CC Projects</h1>
+                  <h1 className="text-3xl font-bold tracking-tight">{t("projects.title")}</h1>
                   <p className="mt-1 text-sm text-muted-foreground">
-                    Browse your Claude Code sessions
+                    {t("projects.description")}
                   </p>
                 </div>
               </motion.div>
@@ -364,7 +362,7 @@ function App() {
                           className="w-full max-w-md"
                         >
                           <Plus className="mr-2 h-4 w-4" />
-                          New Claude Code session
+                          {t("projects.newSession")}
                         </Button>
                       </motion.div>
 
@@ -383,7 +381,7 @@ function App() {
                       ) : (
                         <div className="py-8 text-center">
                           <p className="text-sm text-muted-foreground">
-                            No projects found in ~/.claude/projects
+                            {t("projects.noProjects")}
                           </p>
                         </div>
                       )}
@@ -473,7 +471,7 @@ function App() {
           open={showClaudeBinaryDialog}
           onOpenChange={setShowClaudeBinaryDialog}
           onSuccess={() => {
-            setToast({ message: "Claude binary path saved successfully", type: "success" });
+            setToast({ message: t("success.claudeBinaryPathSaved"), type: "success" });
             // Trigger a refresh of the Claude version check
             window.location.reload();
           }}

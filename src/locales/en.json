@@ -1,0 +1,579 @@
+{
+  "common": {
+    "back": "Back",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "new": "New",
+    "loading": "Loading",
+    "error": "Error",
+    "success": "Success",
+    "settings": "Settings",
+    "close": "Close",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page {{current}} of {{total}}"
+  },
+  "navigation": {
+    "welcome": "Welcome to Claudia",
+    "ccAgents": "CC Agents",
+    "ccProjects": "CC Projects",
+    "backToHome": "Back to Home",
+    "usageDashboard": "Usage Dashboard",
+    "mcpManager": "MCP Manager"
+  },
+  "projects": {
+    "title": "CC Projects",
+    "description": "Browse your Claude Code sessions",
+    "newSession": "New Claude Code session",
+    "noProjects": "No projects found in ~/.claude/projects",
+    "failedToLoad": "Failed to load projects. Please ensure ~/.claude directory exists.",
+    "failedToLoadSessions": "Failed to load sessions for this project.",
+    "hooks": "Hooks"
+  },
+  "sessions": {
+    "sessionCount_one": "{{count}} session",
+    "sessionCount_other": "{{count}} sessions",
+    "firstMessage": "First message:",
+    "hasTodo": "Has todo"
+  },
+  "agents": {
+    "title": "CC Agents",
+    "createAgent": "Create Agent",
+    "executeAgent": "Execute agent",
+    "editAgent": "Edit agent",
+    "deleteAgent": "Delete agent",
+    "exportAgent": "Export agent to .claudia.json",
+    "importAgent": "Import Agent",
+    "noAgents": "No agents found. Create your first agent to get started.",
+    "created": "Created",
+    "description": "Manage your Claude Code agents",
+    "import": "Import",
+    "fromFile": "From File",
+    "fromGitHub": "From GitHub",
+    "createCCAgent": "Create CC Agent",
+    "execute": "Execute",
+    "edit": "Edit",
+    "export": "Export",
+    "delete": "Delete",
+    "noAgentsYet": "No agents yet",
+    "createFirstAgent": "Create your first CC Agent to get started",
+    "recentExecutions": "Recent Executions",
+    "deleteAgentTitle": "Delete Agent",
+    "deleteAgentConfirmation": "Are you sure you want to delete the agent \"{{name}}\"?",
+    "deleteAgentWarning": "This action cannot be undone and will permanently remove the agent and all its associated data.",
+    "deleting": "Deleting...",
+    "createdLabel": "Created: "
+  },
+  "session": {
+    "claudeResponding": "Claude is still responding. If you navigate away, Claude will continue running in the background.\\n\\nYou can return to this session from the Projects view.\\n\\nDo you want to continue?",
+    "executionComplete": "Execution Complete",
+    "executionFailed": "Execution Failed"
+  },
+  "messages": {
+    "agentDeletedSuccess": "Agent deleted successfully",
+    "agentCreatedSuccess": "Agent created successfully",
+    "agentUpdatedSuccess": "Agent updated successfully",
+    "agentExportedSuccess": "Agent \"{{name}}\" exported successfully",
+    "agentImportedSuccess": "Agent imported successfully",
+    "agentImportedFromGitHubSuccess": "Agent imported successfully from GitHub",
+    "failedToLoadAgents": "Failed to load agents",
+    "failedToDeleteAgent": "Failed to delete agent",
+    "failedToExportAgent": "Failed to export agent",
+    "failedToImportAgent": "Failed to import agent"
+  },
+  "fileTypes": {
+    "claudiaAgent": "Claudia Agent"
+  },
+  "errors": {
+    "failedToLoadTables": "Failed to load tables",
+    "failedToLoadTableData": "Failed to load table data",
+    "failedToUpdateRow": "Failed to update row",
+    "failedToDeleteRow": "Failed to delete row",
+    "failedToInsertRow": "Failed to insert row",
+    "failedToExecuteSQL": "Failed to execute SQL",
+    "failedToResetDatabase": "Failed to reset database"
+  },
+  "success": {
+    "claudeBinaryPathSaved": "Claude binary path saved successfully",
+    "databaseResetComplete": "Database Reset Complete: The database has been restored to its default state with empty tables (agents, agent_runs, app_settings).",
+    "settingsSaved": "Settings saved successfully"
+  },
+  "topbar": {
+    "claudeNotFound": "Claude Code not found",
+    "selectClaudeInstallation": "Select Claude Installation",
+    "installClaudeCode": "Install Claude Code",
+    "claudeMd": "CLAUDE.md",
+    "mcp": "MCP",
+    "about": "About"
+  },
+  "placeholders": {
+    "selectTable": "Select a table",
+    "searchInTable": "Search in table...",
+    "null": "NULL"
+  },
+  "usageDashboard": {
+    "title": "Usage Dashboard",
+    "description": "Track your Claude Code usage and costs",
+    "loadingStats": "Loading usage statistics...",
+    "failedToLoad": "Failed to load usage statistics. Please try again.",
+    "tryAgain": "Try Again",
+    "totalCost": "Total Cost",
+    "totalSessions": "Total Sessions",
+    "totalTokens": "Total Tokens",
+    "avgCostPerSession": "Avg Cost/Session",
+    "tokenBreakdown": "Token Breakdown",
+    "inputTokens": "Input Tokens",
+    "outputTokens": "Output Tokens",
+    "cacheWrite": "Cache Write",
+    "cacheRead": "Cache Read",
+    "mostUsedModels": "Most Used Models",
+    "topProjects": "Top Projects",
+    "usageByModel": "Usage by Model",
+    "usageByProject": "Usage by Project",
+    "usageBySession": "Usage by Session",
+    "dailyUsage": "Daily Usage",
+    "noUsageData": "No usage data available for the selected period",
+    "dailyUsageOverTime": "Daily Usage Over Time",
+    "sessions": "sessions",
+    "tokens": "tokens",
+    "models": "models",
+    "model": "model",
+    "session": "session",
+    "input": "Input",
+    "output": "Output",
+    "cacheW": "Cache W",
+    "cacheR": "Cache R",
+    "cost": "Cost",
+    "tabs": {
+      "overview": "Overview",
+      "models": "By Model",
+      "projects": "By Project",
+      "sessions": "By Session",
+      "timeline": "Timeline"
+    },
+    "dateRanges": {
+      "all": "All Time",
+      "7d": "Last 7 Days",
+      "30d": "Last 30 Days"
+    }
+  },
+  "markdownEditor": {
+    "title": "CLAUDE.md",
+    "description": "Edit your Claude Code system prompt",
+    "save": "Save",
+    "saving": "Saving...",
+    "failedToLoad": "Failed to load CLAUDE.md file",
+    "failedToSave": "Failed to save CLAUDE.md file",
+    "saveSuccess": "CLAUDE.md saved successfully",
+    "saveError": "Failed to save CLAUDE.md",
+    "unsavedChanges": "You have unsaved changes. Are you sure you want to leave?"
+  },
+  "mcpManager": {
+    "title": "MCP Servers",
+    "description": "Manage Model Context Protocol servers",
+    "tabs": {
+      "servers": "Servers",
+      "addServer": "Add Server",
+      "importExport": "Import/Export"
+    },
+    "errors": {
+      "failedToLoad": "Failed to load MCP servers. Make sure Claude Code is installed."
+    },
+    "messages": {
+      "serverAdded": "MCP server added successfully!",
+      "serverRemoved": "Server \"{{name}}\" removed successfully!",
+      "importSuccess": "Successfully imported {{count}} server!",
+      "importSuccess_plural": "Successfully imported {{count}} servers!",
+      "importPartial": "Imported {{imported}} server, {{failed}} failed",
+      "importPartial_plural": "Imported {{imported}} servers, {{failed}} failed"
+    }
+  },
+  "mcpServerList": {
+    "scopes": {
+      "local": "Local (Project-specific)",
+      "project": "Project (Shared via .mcp.json)",
+      "user": "User (All projects)"
+    },
+    "status": {
+      "running": "Running"
+    },
+    "actions": {
+      "showFull": "Show full",
+      "hide": "Hide",
+      "copy": "Copy",
+      "copied": "Copied!",
+      "refresh": "Refresh"
+    },
+    "envVars": {
+      "count": "Environment variables: {{count}}"
+    },
+    "details": {
+      "command": "Command",
+      "arguments": "Arguments",
+      "url": "URL",
+      "envVars": "Environment Variables"
+    },
+    "header": {
+      "title": "Configured Servers",
+      "count": "{{count}} server configured",
+      "count_plural": "{{count}} servers configured"
+    },
+    "empty": {
+      "title": "No MCP servers configured",
+      "description": "Add a server to get started with Model Context Protocol"
+    }
+  },
+  "mcpAddServer": {
+    "title": "Add MCP Server",
+    "description": "Configure a new Model Context Protocol server",
+    "errors": {
+      "nameRequired": "Server name is required",
+      "commandRequired": "Command is required",
+      "urlRequired": "URL is required",
+      "failedToAdd": "Failed to add server"
+    },
+    "envVars": {
+      "title": "Environment Variables",
+      "addVariable": "Add Variable",
+      "keyPlaceholder": "VARIABLE_NAME",
+      "valuePlaceholder": "value"
+    },
+    "stdio": {
+      "name": "Server Name",
+      "namePlaceholder": "my-server",
+      "nameDescription": "A unique name to identify this server",
+      "command": "Command",
+      "commandPlaceholder": "/path/to/server",
+      "commandDescription": "The command to execute the server",
+      "arguments": "Arguments (optional)",
+      "argumentsPlaceholder": "--arg1 value1 --arg2 value2",
+      "argumentsDescription": "Space-separated command line arguments",
+      "scope": "Scope",
+      "scopeOptions": {
+        "local": "Local (this project only)",
+        "project": "Project (shared via .mcp.json)",
+        "user": "User (all projects)"
+      },
+      "addingServer": "Adding Server...",
+      "addServer": "Add Stdio Server"
+    },
+    "sse": {
+      "name": "Server Name",
+      "namePlaceholder": "sse-server",
+      "nameDescription": "A unique name to identify this server",
+      "url": "URL",
+      "urlPlaceholder": "https://example.com/sse-endpoint",
+      "urlDescription": "The SSE endpoint URL",
+      "scope": "Scope",
+      "scopeOptions": {
+        "local": "Local (this project only)",
+        "project": "Project (shared via .mcp.json)",
+        "user": "User (all projects)"
+      },
+      "addingServer": "Adding Server...",
+      "addServer": "Add SSE Server"
+    },
+    "example": {
+      "title": "Example Commands",
+      "postgres": "Postgres: /path/to/postgres-mcp-server --connection-string \"postgresql://...\"",
+      "weather": "Weather API: /usr/local/bin/weather-cli --api-key ABC123",
+      "sse": "SSE Server: https://api.example.com/mcp/stream"
+    }
+  },
+  "mcpImportExport": {
+    "title": "Import & Export",
+    "description": "Import MCP servers from other sources or export your configuration",
+    "importScope": {
+      "title": "Import Scope",
+      "description": "Choose where to save imported servers from JSON files",
+      "options": {
+        "local": "Local (this project only)",
+        "project": "Project (shared via .mcp.json)",
+        "user": "User (all projects)"
+      }
+    },
+    "importFromDesktop": {
+      "title": "Import from Claude Desktop",
+      "description": "Automatically imports all MCP servers from Claude Desktop. Installs to user scope (available across all projects).",
+      "button": "Import from Claude Desktop",
+      "importing": "Importing...",
+      "successMessage": "Successfully imported: {{servers}}",
+      "failureMessage": "Failed to import some servers:\n{{failures}}",
+      "error": "Failed to import from Claude Desktop"
+    },
+    "importFromJson": {
+      "title": "Import from JSON",
+      "description": "Import server configuration from a JSON file",
+      "button": "Choose JSON File",
+      "importing": "Importing...",
+      "invalidJson": "Invalid JSON file. Please check the format.",
+      "unrecognizedFormat": "Unrecognized JSON format. Expected MCP server configuration.",
+      "enterName": "Enter a name for this server:",
+      "error": "Failed to import JSON file"
+    },
+    "export": {
+      "title": "Export Configuration",
+      "description": "Export your MCP server configuration",
+      "button": "Export (Coming Soon)",
+      "comingSoon": "Export functionality coming soon!"
+    },
+    "mcpServer": {
+      "title": "Use Claude Code as MCP Server",
+      "description": "Start Claude Code as an MCP server that other applications can connect to",
+      "button": "Start MCP Server",
+      "success": "Claude Code MCP server started. You can now connect to it from other applications.",
+      "error": "Failed to start Claude Code as MCP server"
+    },
+    "jsonExamples": {
+      "title": "JSON Format Examples",
+      "singleServer": "Single server:",
+      "multipleServers": "Multiple servers (.mcp.json format):"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "description": "Configure Claude Code preferences",
+    "saveSettings": "Save Settings",
+    "saving": "Saving...",
+    "settingsSaved": "Settings saved successfully!",
+    "failedToSave": "Failed to save settings",
+    "failedToLoad": "Failed to load settings. Please ensure ~/.claude directory exists.",
+    "tabs": {
+      "general": "General",
+      "permissions": "Permissions",
+      "environment": "Environment",
+      "advanced": "Advanced",
+      "hooks": "Hooks",
+      "commands": "Commands",
+      "storage": "Storage"
+    },
+    "general": {
+      "title": "General Settings",
+      "includeCoAuthoredBy": "Include \"Co-authored by Claude\"",
+      "includeCoAuthoredByDesc": "Add Claude attribution to git commits and pull requests",
+      "verbose": "Verbose Output",
+      "verboseDesc": "Show full bash and command outputs",
+      "cleanupPeriod": "Chat Transcript Retention (days)",
+      "cleanupPeriodDesc": "How long to retain chat transcripts locally (default: 30 days)",
+      "claudeInstallation": "Claude Code Installation",
+      "claudeInstallationDesc": "Select which Claude Code installation to use. Bundled version is recommended for best compatibility.",
+      "binaryPathChanged": "⚠️ Claude binary path has been changed. Remember to save your settings."
+    },
+    "permissions": {
+      "title": "Permission Rules",
+      "description": "Control which tools Claude Code can use without manual approval",
+      "allowRules": "Allow Rules",
+      "denyRules": "Deny Rules",
+      "addRule": "Add Rule",
+      "noAllowRules": "No allow rules configured. Claude will ask for approval for all tools.",
+      "noDenyRules": "No deny rules configured.",
+      "examplesTitle": "Examples:",
+      "exampleBash": "Allow all bash commands",
+      "exampleBashExact": "Allow exact command",
+      "exampleBashPrefix": "Allow commands with prefix",
+      "exampleRead": "Allow reading specific file",
+      "exampleEdit": "Allow editing files in docs directory"
+    },
+    "environment": {
+      "title": "Environment Variables",
+      "description": "Environment variables applied to every Claude Code session",
+      "addVariable": "Add Variable",
+      "noVariables": "No environment variables configured.",
+      "commonVariables": "Common variables:",
+      "telemetryDesc": "Enable/disable telemetry (0 or 1)",
+      "modelDesc": "Custom model name",
+      "disableCostWarningsDesc": "Disable cost warnings (1)"
+    },
+    "advanced": {
+      "title": "Advanced Settings",
+      "description": "Additional configuration options for advanced users",
+      "apiKeyHelper": "API Key Helper Script",
+      "apiKeyHelperDesc": "Custom script to generate auth values for API requests",
+      "rawSettings": "Raw Settings (JSON)",
+      "rawSettingsDesc": "This shows the raw JSON that will be saved to ~/.claude/settings.json"
+    },
+    "hooks": {
+      "title": "User Hooks",
+      "description": "Configure hooks that apply to all Claude Code sessions for your user account. These are stored in ~/.claude/settings.json"
+    }
+  },
+  "claudeVersionSelector": {
+    "title": "Claude Code Installation",
+    "loading": "Loading available installations...",
+    "error": "Error loading installations",
+    "retry": "Retry",
+    "description": "Choose your preferred Claude Code installation. Bundled version is recommended for best compatibility.",
+    "availableInstallations": "Available Installations",
+    "selectInstallation": "Select Claude installation",
+    "bundled": "Bundled",
+    "bundledTitle": "Claude Code (Bundled)",
+    "versionUnknown": "Version unknown",
+    "recommended": "Recommended",
+    "systemInstallations": "System Installations",
+    "system": "System",
+    "customInstallations": "Custom Installations",
+    "custom": "Custom",
+    "selectedInstallation": "Selected Installation",
+    "path": "Path:",
+    "source": "Source:",
+    "version": "Version:",
+    "saving": "Saving...",
+    "saveSelection": "Save Selection"
+  },
+  "storageTab": {
+    "title": "Database Storage",
+    "sqlQuery": "SQL Query",
+    "resetDB": "Reset DB",
+    "selectTable": "Select a table",
+    "rows": "rows",
+    "searchInTable": "Search in table...",
+    "newRow": "New Row",
+    "actions": "Actions",
+    "showing": "Showing",
+    "to": "to",
+    "of": "of",
+    "previous": "Previous",
+    "page": "Page",
+    "next": "Next",
+    "editRow": "Edit Row",
+    "updateRowDescription": "Update the values for this row in the {{table}} table.",
+    "primaryKey": "(Primary Key)",
+    "type": "Type:",
+    "notNull": "NOT NULL",
+    "default": "Default:",
+    "update": "Update",
+    "newRowTitle": "New Row",
+    "addRowDescription": "Add a new row to the {{table}} table.",
+    "required": "(Required)",
+    "insert": "Insert",
+    "deleteRow": "Delete Row",
+    "deleteConfirmation": "Are you sure you want to delete this row? This action cannot be undone.",
+    "delete": "Delete",
+    "resetDatabase": "Reset Database",
+    "resetDescription": "This will delete all data and recreate the database with its default structure (empty tables for agents, agent_runs, and app_settings). The database will be restored to the same state as when you first installed the app. This action cannot be undone.",
+    "resetWarning": "All your agents, runs, and settings will be permanently deleted!",
+    "sqlQueryEditor": "SQL Query Editor",
+    "sqlQueryDescription": "Execute raw SQL queries on the database. Use with caution.",
+    "sqlQueryLabel": "SQL Query",
+    "sqlQueryPlaceholder": "SELECT * FROM agents LIMIT 10;",
+    "close": "Close",
+    "execute": "Execute",
+    "querySuccess": "Query executed successfully. {{affected}} rows affected.",
+    "lastInsertId": "Last insert ID: {{id}}",
+    "resetComplete": "Database Reset Complete: The database has been restored to its default state with empty tables (agents, agent_runs, app_settings).",
+    "resetFailed": "Reset Failed: Failed to reset the database. Please try again.",
+    "errors": {
+      "failedToLoad": "Failed to load tables",
+      "failedToLoadData": "Failed to load table data",
+      "failedToUpdate": "Failed to update row",
+      "failedToDelete": "Failed to delete row",
+      "failedToInsert": "Failed to insert row",
+      "failedToExecute": "Failed to execute SQL",
+      "failedToReset": "Failed to reset database"
+    }
+  },
+  "hooksEditor": {
+    "title": "Hooks Configuration",
+    "loading": "Loading hooks configuration...",
+    "projectScope": "Project Scope",
+    "localScope": "Local",
+    "userScope": "User",
+    "templates": "Templates",
+    "saving": "Saving...",
+    "save": "Save",
+    "description": "Configure shell commands to execute at various points in Claude Code's lifecycle.",
+    "localDescription": "These settings are not committed to version control.",
+    "unsavedChanges": "You have unsaved changes. Click Save to persist them.",
+    "validationErrors": "Validation Errors:",
+    "securityWarnings": "Security Warnings:",
+    "events": {
+      "preToolUse": "Pre Tool Use",
+      "preToolUseDesc": "Runs before tool calls, can block and provide feedback",
+      "postToolUse": "Post Tool Use",
+      "postToolUseDesc": "Runs after successful tool completion",
+      "notification": "Notification",
+      "notificationDesc": "Customizes notifications when Claude needs attention",
+      "stop": "Stop",
+      "stopDesc": "Runs when Claude finishes responding",
+      "subagentStop": "Subagent Stop",
+      "subagentStopDesc": "Runs when a Claude subagent (Task) finishes"
+    },
+    "pattern": "Pattern",
+    "patternTooltip": "Tool name pattern (regex supported). Leave empty to match all tools.",
+    "patternPlaceholder": "e.g., Bash, Edit|Write, mcp__.*",
+    "commonPatterns": "Common patterns",
+    "custom": "Custom",
+    "commands": "Commands",
+    "addCommand": "Add Command",
+    "noCommands": "No commands added yet",
+    "commandPlaceholder": "Enter shell command...",
+    "seconds": "seconds",
+    "noHooks": "No hooks configured for this event",
+    "addHook": "Add Hook",
+    "addAnother": "Add Another",
+    "matcher": "Matcher",
+    "command": "Command",
+    "templatesTitle": "Hook Templates",
+    "templatesDescription": "Choose a pre-configured hook template to get started quickly",
+    "matcherLabel": "Matcher:"
+  },
+  "slashCommandsManager": {
+    "title": "Slash Commands",
+    "projectTitle": "Project Slash Commands",
+    "description": "Create custom commands to streamline your workflow",
+    "projectDescription": "Create custom commands for this project",
+    "newCommand": "New Command",
+    "searchCommands": "Search commands...",
+    "allCommands": "All Commands",
+    "project": "Project",
+    "user": "User",
+    "noCommandsFound": "No commands found",
+    "noProjectCommands": "No project commands created yet",
+    "noCommands": "No commands created yet",
+    "createFirstProject": "Create your first project command",
+    "createFirst": "Create your first command",
+    "arguments": "Arguments",
+    "tools": "tools",
+    "tool": "tool",
+    "bash": "Bash",
+    "files": "Files",
+    "hideContent": "Hide content",
+    "showContent": "Show content",
+    "editCommand": "Edit Command",
+    "createCommand": "Create New Command",
+    "scope": "Scope",
+    "userGlobal": "User (Global)",
+    "projectScope": "Project",
+    "availableAllProjects": "Available across all projects",
+    "availableThisProject": "Only available in this project",
+    "commandName": "Command Name*",
+    "commandNamePlaceholder": "e.g., review, fix-issue",
+    "namespace": "Namespace (Optional)",
+    "namespacePlaceholder": "e.g., frontend, backend",
+    "description": "Description (Optional)",
+    "descriptionPlaceholder": "Brief description of what this command does",
+    "commandContent": "Command Content*",
+    "contentPlaceholder": "Enter the prompt content. Use $ARGUMENTS for dynamic values.",
+    "contentHelp": "Use $ARGUMENTS for user input, @filename for files, and !`command` for bash commands",
+    "allowedTools": "Allowed Tools",
+    "toolsHelp": "Select which tools Claude can use with this command",
+    "examples": "Examples",
+    "preview": "Preview",
+    "argumentsLabel": "[arguments]",
+    "deleteCommand": "Delete Command",
+    "deleteConfirmation": "Are you sure you want to delete this command?",
+    "deleteWarning": "This action cannot be undone. The command file will be permanently deleted.",
+    "deleting": "Deleting...",
+    "errors": {
+      "failedToLoad": "Failed to load commands",
+      "failedToSave": "Failed to save command",
+      "failedToDelete": "Failed to delete command"
+    }
+  }
+}

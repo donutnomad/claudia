@@ -4,6 +4,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { 
   Plus, 
   Trash2, 
@@ -80,34 +81,6 @@ interface EditableHookMatcher extends Omit<HookMatcher, 'hooks'> {
   expanded?: boolean;
 }
 
-const EVENT_INFO: Record<HookEvent, { label: string; description: string; icon: React.ReactNode }> = {
-  PreToolUse: {
-    label: 'Pre Tool Use',
-    description: 'Runs before tool calls, can block and provide feedback',
-    icon: <Shield className="h-4 w-4" />
-  },
-  PostToolUse: {
-    label: 'Post Tool Use',
-    description: 'Runs after successful tool completion',
-    icon: <PlayCircle className="h-4 w-4" />
-  },
-  Notification: {
-    label: 'Notification',
-    description: 'Customizes notifications when Claude needs attention',
-    icon: <Zap className="h-4 w-4" />
-  },
-  Stop: {
-    label: 'Stop',
-    description: 'Runs when Claude finishes responding',
-    icon: <Code2 className="h-4 w-4" />
-  },
-  SubagentStop: {
-    label: 'Subagent Stop',
-    description: 'Runs when a Claude subagent (Task) finishes',
-    icon: <Terminal className="h-4 w-4" />
-  }
-};
-
 export const HooksEditor: React.FC<HooksEditorProps> = ({
   projectPath,
   scope,
@@ -116,6 +89,7 @@ export const HooksEditor: React.FC<HooksEditorProps> = ({
   onChange,
   hideActions = false
 }) => {
+  const { t } = useTranslation();
   const [selectedEvent, setSelectedEvent] = useState<HookEvent>('PreToolUse');
   const [showTemplateDialog, setShowTemplateDialog] = useState(false);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
@@ -131,6 +105,35 @@ export const HooksEditor: React.FC<HooksEditorProps> = ({
   const matcherEvents = ['PreToolUse', 'PostToolUse'] as const;
   // Events without matchers (non-tool-related)
   const directEvents = ['Notification', 'Stop', 'SubagentStop'] as const;
+  
+  // Event info with translations
+  const EVENT_INFO: Record<HookEvent, { label: string; description: string; icon: React.ReactNode }> = {
+    PreToolUse: {
+      label: t('hooksEditor.events.preToolUse'),
+      description: t('hooksEditor.events.preToolUseDesc'),
+      icon: <Shield className="h-4 w-4" />
+    },
+    PostToolUse: {
+      label: t('hooksEditor.events.postToolUse'),
+      description: t('hooksEditor.events.postToolUseDesc'),
+      icon: <PlayCircle className="h-4 w-4" />
+    },
+    Notification: {
+      label: t('hooksEditor.events.notification'),
+      description: t('hooksEditor.events.notificationDesc'),
+      icon: <Zap className="h-4 w-4" />
+    },
+    Stop: {
+      label: t('hooksEditor.events.stop'),
+      description: t('hooksEditor.events.stopDesc'),
+      icon: <Code2 className="h-4 w-4" />
+    },
+    SubagentStop: {
+      label: t('hooksEditor.events.subagentStop'),
+      description: t('hooksEditor.events.subagentStopDesc'),
+      icon: <Terminal className="h-4 w-4" />
+    }
+  };
   
   // Convert hooks to editable format with IDs
   const [editableHooks, setEditableHooks] = useState<{
@@ -192,7 +195,7 @@ export const HooksEditor: React.FC<HooksEditorProps> = ({
         })
         .catch((err) => {
           console.error("Failed to load hooks configuration:", err);
-          setLoadError(err instanceof Error ? err.message : "Failed to load hooks configuration");
+          setLoadError(err instanceof Error ? err.message : t("hooksEditor.loading"));
           setHooks({});
         })
         .finally(() => {
@@ -323,7 +326,7 @@ export const HooksEditor: React.FC<HooksEditorProps> = ({
       setHasUnsavedChanges(false);
     } catch (error) {
       console.error('Failed to save hooks:', error);
-      setLoadError(error instanceof Error ? error.message : 'Failed to save hooks');
+      setLoadError(error instanceof Error ? error.message : t('hooksEditor.save'));
     } finally {
       setIsSaving(false);
     }
@@ -523,14 +526,14 @@ export const HooksEditor: React.FC<HooksEditorProps> = ({
         
         <div className="flex-1 space-y-2">
           <div className="flex items-center gap-2">
-            <Label htmlFor={`matcher-${matcher.id}`}>Pattern</Label>
+            <Label htmlFor={`matcher-${matcher.id}`}>{t('hooksEditor.pattern')}</Label>
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Info className="h-3 w-3 text-muted-foreground" />
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Tool name pattern (regex supported). Leave empty to match all tools.</p>
+                  <p>{t('hooksEditor.patternTooltip')}</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
@@ -539,7 +542,7 @@ export const HooksEditor: React.FC<HooksEditorProps> = ({
           <div className="flex items-center gap-2">
             <Input
               id={`matcher-${matcher.id}`}
-              placeholder="e.g., Bash, Edit|Write, mcp__.*"
+              placeholder={t('hooksEditor.patternPlaceholder')}
               value={matcher.matcher || ''}
               onChange={(e) => updateMatcher(event, matcher.id, { matcher: e.target.value })}
               disabled={readOnly}
@@ -556,10 +559,10 @@ export const HooksEditor: React.FC<HooksEditorProps> = ({
               disabled={readOnly}
             >
               <SelectTrigger className="w-40">
-                <SelectValue placeholder="Common patterns" />
+                <SelectValue placeholder={t('hooksEditor.commonPatterns')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="custom">Custom</SelectItem>
+                <SelectItem value="custom">{t('hooksEditor.custom')}</SelectItem>
                 {COMMON_TOOL_MATCHERS.map(pattern => (
                   <SelectItem key={pattern} value={pattern}>{pattern}</SelectItem>
                 ))}
@@ -589,7 +592,7 @@ export const HooksEditor: React.FC<HooksEditorProps> = ({
           >
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <Label>Commands</Label>
+                <Label>{t('hooksEditor.commands')}</Label>
                 {!readOnly && (
                   <Button
                     variant="outline"
@@ -597,13 +600,13 @@ export const HooksEditor: React.FC<HooksEditorProps> = ({
                     onClick={() => addCommand(event, matcher.id)}
                   >
                     <Plus className="h-3 w-3 mr-1" />
-                    Add Command
+                    {t('hooksEditor.addCommand')}
                   </Button>
                 )}
               </div>
               
               {matcher.hooks.length === 0 ? (
-                <p className="text-sm text-muted-foreground">No commands added yet</p>
+                <p className="text-sm text-muted-foreground">{t('hooksEditor.noCommands')}</p>
               ) : (
                 <div className="space-y-2">
                   {matcher.hooks.map((hook) => (
@@ -611,7 +614,7 @@ export const HooksEditor: React.FC<HooksEditorProps> = ({
                       <div className="flex items-start gap-2">
                         <div className="flex-1 space-y-2">
                           <Textarea
-                            placeholder="Enter shell command..."
+                            placeholder={t('hooksEditor.commandPlaceholder')}
                             value={hook.command || ''}
                             onChange={(e) => updateCommand(event, matcher.id, hook.id, { command: e.target.value })}
                             disabled={readOnly}
@@ -631,7 +634,7 @@ export const HooksEditor: React.FC<HooksEditorProps> = ({
                                 disabled={readOnly}
                                 className="w-20 h-8"
                               />
-                              <span className="text-sm text-muted-foreground">seconds</span>
+                              <span className="text-sm text-muted-foreground">{t('hooksEditor.seconds')}</span>
                             </div>
                             
                             {!readOnly && (
@@ -677,7 +680,7 @@ export const HooksEditor: React.FC<HooksEditorProps> = ({
       <div className="flex items-start gap-2">
         <div className="flex-1 space-y-2">
           <Textarea
-            placeholder="Enter shell command..."
+            placeholder={t('hooksEditor.commandPlaceholder')}
             value={command.command || ''}
             onChange={(e) => updateDirectCommand(event, command.id, { command: e.target.value })}
             disabled={readOnly}
@@ -736,7 +739,7 @@ export const HooksEditor: React.FC<HooksEditorProps> = ({
       {isLoading && (
         <div className="flex items-center justify-center p-8">
           <Loader2 className="h-6 w-6 animate-spin mr-2" />
-          <span className="text-sm text-muted-foreground">Loading hooks configuration...</span>
+          <span className="text-sm text-muted-foreground">{t('hooksEditor.loading')}</span>
         </div>
       )}
       
@@ -754,10 +757,10 @@ export const HooksEditor: React.FC<HooksEditorProps> = ({
           {/* Header */}
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold">Hooks Configuration</h3>
+              <h3 className="text-lg font-semibold">{t('hooksEditor.title')}</h3>
               <div className="flex items-center gap-2">
                 <Badge variant={scope === 'project' ? 'secondary' : scope === 'local' ? 'outline' : 'default'}>
-                  {scope === 'project' ? 'Project' : scope === 'local' ? 'Local' : 'User'} Scope
+                  {scope === 'project' ? t('hooksEditor.projectScope') : scope === 'local' ? t('hooksEditor.localScope') : t('hooksEditor.userScope')} Scope
                 </Badge>
                 {!readOnly && (
                   <>
@@ -767,7 +770,7 @@ export const HooksEditor: React.FC<HooksEditorProps> = ({
                       onClick={() => setShowTemplateDialog(true)}
                     >
                       <FileText className="h-4 w-4 mr-2" />
-                      Templates
+                      {t('hooksEditor.templates')}
                     </Button>
                     {!hideActions && (
                       <Button
@@ -781,7 +784,7 @@ export const HooksEditor: React.FC<HooksEditorProps> = ({
                         ) : (
                           <Save className="h-4 w-4 mr-2" />
                         )}
-                        {isSaving ? "Saving..." : "Save"}
+                        {isSaving ? t('hooksEditor.saving') : t('hooksEditor.save')}
                       </Button>
                     )}
                   </>
@@ -789,12 +792,12 @@ export const HooksEditor: React.FC<HooksEditorProps> = ({
               </div>
             </div>
             <p className="text-sm text-muted-foreground">
-              Configure shell commands to execute at various points in Claude Code's lifecycle.
-              {scope === 'local' && ' These settings are not committed to version control.'}
+              {t('hooksEditor.description')}
+              {scope === 'local' && ` ${t('hooksEditor.localDescription')}`}
             </p>
             {hasUnsavedChanges && !readOnly && (
               <p className="text-sm text-amber-600">
-                You have unsaved changes. Click Save to persist them.
+                {t('hooksEditor.unsavedChanges')}
               </p>
             )}
           </div>
@@ -802,7 +805,7 @@ export const HooksEditor: React.FC<HooksEditorProps> = ({
           {/* Validation Messages */}
           {validationErrors.length > 0 && (
             <div className="p-3 bg-red-500/10 rounded-md space-y-1">
-              <p className="text-sm font-medium text-red-600">Validation Errors:</p>
+              <p className="text-sm font-medium text-red-600">{t('hooksEditor.validationErrors')}</p>
               {validationErrors.map((error, i) => (
                 <p key={i} className="text-xs text-red-600">• {error}</p>
               ))}
@@ -811,7 +814,7 @@ export const HooksEditor: React.FC<HooksEditorProps> = ({
 
           {validationWarnings.length > 0 && (
             <div className="p-3 bg-yellow-500/10 rounded-md space-y-1">
-              <p className="text-sm font-medium text-yellow-600">Security Warnings:</p>
+              <p className="text-sm font-medium text-yellow-600">{t('hooksEditor.securityWarnings')}</p>
               {validationWarnings.map((warning, i) => (
                 <p key={i} className="text-xs text-yellow-600">• {warning}</p>
               ))}
@@ -857,11 +860,11 @@ export const HooksEditor: React.FC<HooksEditorProps> = ({
 
                   {items.length === 0 ? (
                     <Card className="p-8 text-center">
-                      <p className="text-muted-foreground mb-4">No hooks configured for this event</p>
+                      <p className="text-muted-foreground mb-4">{t('hooksEditor.noHooks')}</p>
                       {!readOnly && (
                         <Button onClick={() => isMatcherEvent ? addMatcher(event) : addDirectCommand(event)}>
                           <Plus className="h-4 w-4 mr-2" />
-                          Add Hook
+                          {t('hooksEditor.addHook')}
                         </Button>
                       )}
                     </Card>
@@ -879,7 +882,7 @@ export const HooksEditor: React.FC<HooksEditorProps> = ({
                           className="w-full"
                         >
                           <Plus className="h-4 w-4 mr-2" />
-                          Add Another {isMatcherEvent ? 'Matcher' : 'Command'}
+                          {t('hooksEditor.addAnother')} {isMatcherEvent ? t('hooksEditor.matcher') : t('hooksEditor.command')}
                         </Button>
                       )}
                     </div>
@@ -893,9 +896,9 @@ export const HooksEditor: React.FC<HooksEditorProps> = ({
           <Dialog open={showTemplateDialog} onOpenChange={setShowTemplateDialog}>
             <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
               <DialogHeader>
-                <DialogTitle>Hook Templates</DialogTitle>
+                <DialogTitle>{t('hooksEditor.templatesTitle')}</DialogTitle>
                 <DialogDescription>
-                  Choose a pre-configured hook template to get started quickly
+                  {t('hooksEditor.templatesDescription')}
                 </DialogDescription>
               </DialogHeader>
               
@@ -914,7 +917,7 @@ export const HooksEditor: React.FC<HooksEditorProps> = ({
                       <p className="text-sm text-muted-foreground">{template.description}</p>
                       {matcherEvents.includes(template.event as any) && template.matcher && (
                         <p className="text-xs font-mono bg-muted px-2 py-1 rounded inline-block">
-                          Matcher: {template.matcher}
+                          {t('hooksEditor.matcherLabel')} {template.matcher}
                         </p>
                       )}
                     </div>
