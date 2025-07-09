@@ -13,6 +13,7 @@ import {
   Hash,
   Command
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -75,6 +76,7 @@ export const ClaudeCodeSession: React.FC<ClaudeCodeSessionProps> = ({
   className,
   onStreamingChange,
 }) => {
+  const { t } = useTranslation();
   const [projectPath, setProjectPath] = useState(initialProjectPath || session?.project_path || "");
   const [messages, setMessages] = useState<ClaudeStreamMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -1406,9 +1408,9 @@ export const ClaudeCodeSession: React.FC<ClaudeCodeSessionProps> = ({
         <Dialog open={showSlashCommandsSettings} onOpenChange={setShowSlashCommandsSettings}>
           <DialogContent className="max-w-4xl max-h-[80vh] overflow-hidden">
             <DialogHeader>
-              <DialogTitle>Slash Commands</DialogTitle>
+              <DialogTitle>{t('claudeCodeSession.slashCommands')}</DialogTitle>
               <DialogDescription>
-                Manage project-specific slash commands for {projectPath}
+                {t('claudeCodeSession.slashCommandsDescription')} {projectPath}
               </DialogDescription>
             </DialogHeader>
             <div className="flex-1 overflow-y-auto">

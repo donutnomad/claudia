@@ -10,6 +10,7 @@ import {
   Square,
   Brain
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Popover } from "@/components/ui/popover";
@@ -72,43 +73,6 @@ type ThinkingModeConfig = {
   phrase?: string; // The phrase to append
 };
 
-const THINKING_MODES: ThinkingModeConfig[] = [
-  {
-    id: "auto",
-    name: "Auto",
-    description: "Let Claude decide",
-    level: 0
-  },
-  {
-    id: "think",
-    name: "Think",
-    description: "Basic reasoning",
-    level: 1,
-    phrase: "think"
-  },
-  {
-    id: "think_hard",
-    name: "Think Hard",
-    description: "Deeper analysis",
-    level: 2,
-    phrase: "think hard"
-  },
-  {
-    id: "think_harder",
-    name: "Think Harder",
-    description: "Extensive reasoning",
-    level: 3,
-    phrase: "think harder"
-  },
-  {
-    id: "ultrathink",
-    name: "Ultrathink",
-    description: "Maximum computation",
-    level: 4,
-    phrase: "ultrathink"
-  }
-];
-
 /**
  * ThinkingModeIndicator component - Shows visual indicator bars for thinking level
  */
@@ -135,21 +99,6 @@ type Model = {
   icon: React.ReactNode;
 };
 
-const MODELS: Model[] = [
-  {
-    id: "sonnet",
-    name: "Claude 4 Sonnet",
-    description: "Faster, efficient for most tasks",
-    icon: <Zap className="h-4 w-4" />
-  },
-  {
-    id: "opus",
-    name: "Claude 4 Opus",
-    description: "More capable, better for complex tasks",
-    icon: <Sparkles className="h-4 w-4" />
-  }
-];
-
 /**
  * FloatingPromptInput component - Fixed position prompt input with model picker
  * 
@@ -173,6 +122,7 @@ const FloatingPromptInputInner = (
   }: FloatingPromptInputProps,
   ref: React.Ref<FloatingPromptInputRef>,
 ) => {
+  const { t } = useTranslation();
   const [prompt, setPrompt] = useState("");
   const [selectedModel, setSelectedModel] = useState<"sonnet" | "opus">(defaultModel);
   const [selectedThinkingMode, setSelectedThinkingMode] = useState<ThinkingMode>("auto");
@@ -190,6 +140,60 @@ const FloatingPromptInputInner = (
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const expandedTextareaRef = useRef<HTMLTextAreaElement>(null);
   const unlistenDragDropRef = useRef<(() => void) | null>(null);
+
+  // Create translated thinking modes
+  const THINKING_MODES: ThinkingModeConfig[] = [
+    {
+      id: "auto",
+      name: t("floatingPromptInput.thinkingModes.auto"),
+      description: t("floatingPromptInput.thinkingModes.autoDescription"),
+      level: 0
+    },
+    {
+      id: "think",
+      name: t("floatingPromptInput.thinkingModes.think"),
+      description: t("floatingPromptInput.thinkingModes.thinkDescription"),
+      level: 1,
+      phrase: "think"
+    },
+    {
+      id: "think_hard",
+      name: t("floatingPromptInput.thinkingModes.thinkHard"),
+      description: t("floatingPromptInput.thinkingModes.thinkHardDescription"),
+      level: 2,
+      phrase: "think hard"
+    },
+    {
+      id: "think_harder",
+      name: t("floatingPromptInput.thinkingModes.thinkHarder"),
+      description: t("floatingPromptInput.thinkingModes.thinkHarderDescription"),
+      level: 3,
+      phrase: "think harder"
+    },
+    {
+      id: "ultrathink",
+      name: t("floatingPromptInput.thinkingModes.ultrathink"),
+      description: t("floatingPromptInput.thinkingModes.ultrathinkDescription"),
+      level: 4,
+      phrase: "ultrathink"
+    }
+  ];
+
+  // Create translated models
+  const MODELS: Model[] = [
+    {
+      id: "sonnet",
+      name: t("floatingPromptInput.models.sonnet"),
+      description: t("floatingPromptInput.models.sonnetDescription"),
+      icon: <Zap className="h-4 w-4" />
+    },
+    {
+      id: "opus",
+      name: t("floatingPromptInput.models.opus"),
+      description: t("floatingPromptInput.models.opusDescription"),
+      icon: <Sparkles className="h-4 w-4" />
+    }
+  ];
 
   // Expose a method to add images programmatically
   React.useImperativeHandle(
@@ -733,7 +737,7 @@ const FloatingPromptInputInner = (
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between">
-                <h3 className="text-sm font-medium">Compose your prompt</h3>
+                <h3 className="text-sm font-medium">{t("floatingPromptInput.composePrompt")}</h3>
                 <Button
                   variant="ghost"
                   size="icon"
@@ -758,7 +762,7 @@ const FloatingPromptInputInner = (
                 value={prompt}
                 onChange={handleTextChange}
                 onPaste={handlePaste}
-                placeholder="Type your prompt here..."
+                placeholder={t("floatingPromptInput.typePrompt")}
                 className="min-h-[200px] resize-none"
                 disabled={disabled}
                 onDragEnter={handleDrag}
@@ -770,7 +774,7 @@ const FloatingPromptInputInner = (
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs text-muted-foreground">Model:</span>
+                    <span className="text-xs text-muted-foreground">{t("floatingPromptInput.model")}</span>
                     <Button
                       variant="outline"
                       size="sm"
@@ -783,7 +787,7 @@ const FloatingPromptInputInner = (
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <span className="text-xs text-muted-foreground">Thinking:</span>
+                    <span className="text-xs text-muted-foreground">{t("floatingPromptInput.thinking")}</span>
                     <Popover
                       trigger={
                         <TooltipProvider>
@@ -1001,7 +1005,7 @@ const FloatingPromptInputInner = (
                   onChange={handleTextChange}
                   onKeyDown={handleKeyDown}
                   onPaste={handlePaste}
-                  placeholder={dragActive ? "Drop images here..." : "Ask Claude anything..."}
+                  placeholder={dragActive ? t("floatingPromptInput.dropImages") : t("floatingPromptInput.askClaude")}
                   disabled={disabled}
                   className={cn(
                     "min-h-[44px] max-h-[120px] resize-none pr-10",
@@ -1056,7 +1060,7 @@ const FloatingPromptInputInner = (
                 {isLoading ? (
                   <>
                     <Square className="h-4 w-4 mr-1" />
-                    Stop
+                    {t("floatingPromptInput.stop")}
                   </>
                 ) : (
                   <Send className="h-4 w-4" />
@@ -1065,7 +1069,7 @@ const FloatingPromptInputInner = (
             </div>
 
             <div className="mt-2 text-xs text-muted-foreground">
-              Press Enter to send, Shift+Enter for new line{projectPath?.trim() && ", @ to mention files, / for commands, drag & drop or paste images"}
+              {t("floatingPromptInput.enterToSend")}{projectPath?.trim() && t("floatingPromptInput.fileMentions")}
             </div>
           </div>
         </div>
