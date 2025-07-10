@@ -188,15 +188,16 @@ fn source_preference(installation: &ClaudeInstallation) -> u8 {
         "homebrew" => 2,
         "system" => 3,
         source if source.starts_with("nvm") => 4,
-        "local-bin" => 5,
-        "claude-local" => 6,
-        "npm-global" => 7,
-        "yarn" | "yarn-global" => 8,
-        "bun" => 9,
-        "node-modules" => 10,
-        "home-bin" => 11,
-        "PATH" => 12,
-        _ => 13,
+        source if source.starts_with("fnm") => 5,
+        "local-bin" => 6,
+        "claude-local" => 7,
+        "npm-global" => 8,
+        "yarn" | "yarn-global" => 9,
+        "bun" => 10,
+        "node-modules" => 11,
+        "home-bin" => 12,
+        "PATH" => 13,
+        _ => 14,
     }
 }
 
@@ -266,11 +267,12 @@ fn try_which_command() -> Option<ClaudeInstallation> {
     }
 }
 
-/// Find Claude installations in NVM directories
+/// Find Claude installations in NVM and fnm directories
 fn find_nvm_installations() -> Vec<ClaudeInstallation> {
     let mut installations = Vec::new();
 
     if let Ok(home) = std::env::var("HOME") {
+        // Check NVM installations
         let nvm_dir = PathBuf::from(&home)
             .join(".nvm")
             .join("versions")
@@ -296,6 +298,40 @@ fn find_nvm_installations() -> Vec<ClaudeInstallation> {
                             path: path_str,
                             version,
                             source: format!("nvm ({})", node_version),
+                            installation_type: InstallationType::System,
+                        });
+                    }
+                }
+            }
+        }
+
+        // Check fnm installations
+        let fnm_dir = PathBuf::from(&home)
+            .join(".local")
+            .join("share")
+            .join("fnm")
+            .join("node-versions");
+
+        debug!("Checking fnm directory: {:?}", fnm_dir);
+
+        if let Ok(entries) = std::fs::read_dir(&fnm_dir) {
+            for entry in entries.flatten() {
+                if entry.file_type().map(|t| t.is_dir()).unwrap_or(false) {
+                    let claude_path = entry.path().join("installation").join("bin").join("claude");
+
+                    if claude_path.exists() && claude_path.is_file() {
+                        let path_str = claude_path.to_string_lossy().to_string();
+                        let node_version = entry.file_name().to_string_lossy().to_string();
+
+                        debug!("Found Claude in fnm node {}: {}", node_version, path_str);
+
+                        // Get Claude version
+                        let version = get_claude_version(&path_str).ok().flatten();
+
+                        installations.push(ClaudeInstallation {
+                            path: path_str,
+                            version,
+                            source: format!("fnm ({})", node_version),
                             installation_type: InstallationType::System,
                         });
                     }
@@ -523,6 +559,10 @@ pub fn create_command_with_env(program: &str) -> Command {
             || key == "NODE_PATH"
             || key == "NVM_DIR"
             || key == "NVM_BIN"
+            || key == "FNM_DIR"
+            || key == "FNM_MULTISHELL_PATH"
+            || key == "FNM_VERSION_FILE_STRATEGY"
+            || key == "FNM_NODE_DIST_MIRROR"
             || key == "HOMEBREW_PREFIX"
             || key == "HOMEBREW_CELLAR"
         {
@@ -540,6 +580,20 @@ pub fn create_command_with_env(program: &str) -> Command {
             if !current_path.contains(&node_bin_str.as_ref()) {
                 let new_path = format!("{}:{}", node_bin_str, current_path);
                 debug!("Adding NVM bin directory to PATH: {}", node_bin_str);
+                cmd.env("PATH", new_path);
+            }
+        }
+    }
+
+    // Add fnm support if the program is in an fnm directory
+    if program.contains("/.local/share/fnm/node-versions/") {
+        if let Some(node_bin_dir) = std::path::Path::new(program).parent() {
+            // Ensure the Node.js bin directory is in PATH
+            let current_path = std::env::var("PATH").unwrap_or_default();
+            let node_bin_str = node_bin_dir.to_string_lossy();
+            if !current_path.contains(&node_bin_str.as_ref()) {
+                let new_path = format!("{}:{}", node_bin_str, current_path);
+                debug!("Adding fnm bin directory to PATH: {}", node_bin_str);
                 cmd.env("PATH", new_path);
             }
         }
